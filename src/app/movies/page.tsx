@@ -1,11 +1,12 @@
+'use client'
 import React from "react";
 import { MdLogout } from "react-icons/md";
 import { IoAddCircleOutline } from "react-icons/io5";
-
+import Cookies from "js-cookie";
 import { movies } from "@/lib/movie";
 import Image from "next/image";
 import Link from "next/link";
-
+import { useRouter } from "next/navigation";
 import {
   Pagination,
   PaginationContent,
@@ -16,6 +17,13 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 const page = () => {
+const router = useRouter();
+  const handleLogout = async () => {
+      await Cookies.remove('auth')
+      if(!Cookies.get('auth')){
+        router.push('/')
+      } 
+  }
   return (
     <main className="">
       <section className="flex justify-between">
@@ -29,9 +37,9 @@ const page = () => {
 
         <div className="text-2xl flex justify-center items-center gap-2">
           <p className="">Logout</p>
-          <Link href="/">
+          <button className="" onClick={handleLogout}>
             <MdLogout />
-          </Link>
+          </button>
         </div>
       </section>
 
