@@ -1,10 +1,16 @@
-import Login from "@/views/Login";
+'use client'
 import Image from "next/image";
 import "./globals.css";
-
+import { useRouter } from "next/navigation";
 export default function Home() {
+  const router = useRouter();
+
+  const handleSubmit = (e : any) =>{
+    e.preventDefault();
+    router.push('/movies')
+  }
   return (
-    <main className="flex justify-center items-center min-h-screen">
+    <main className="flex justify-center items-center min-h-[75vh]">
       <div className="w-full max-w-xs p-6">
         <h2
           className="text-center"
@@ -12,7 +18,7 @@ export default function Home() {
         >
           Sign In
         </h2>
-        <form action="" className="flex flex-col gap-4">
+        <form action="" onSubmit={handleSubmit} className="flex flex-col gap-4">
           <input
             type="email"
             className="bg-[#224957] rounded-xl text-white py-2 px-3 outline-none"
@@ -35,7 +41,7 @@ export default function Home() {
               Remember me
             </label>
           </span>
-          <button className="bg-[#2BD17E] rounded-md p-2">Login</button>
+          <button  type="submit" className="bg-[#2BD17E] rounded-md p-2">Login</button>
         </form>
       </div>
     </main>
