@@ -1,5 +1,5 @@
 'use client'
-import React from "react";
+import React, { useEffect } from "react";
 import { MdLogout } from "react-icons/md";
 import { IoAddCircleOutline } from "react-icons/io5";
 import Cookies from "js-cookie";
@@ -17,13 +17,15 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 const page = () => {
-const router = useRouter();
+  const router = useRouter();
   const handleLogout = async () => {
-      await Cookies.remove('auth')
-      if(!Cookies.get('auth')){
-        router.push('/')
-      } 
+    await Cookies.remove('auth')
+    if (!Cookies.get('auth')) {
+      router.push('/')
+    }
   }
+
+
   return (
     <main className="">
       <section className="flex justify-between">
@@ -45,7 +47,7 @@ const router = useRouter();
 
       <section className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-10 py-10 justify-between">
         {movies.map((movie, i) => (
-          <>
+          <Link href={'/edit-movie'}>
             <div
               className="bg-[#092C39] rounded-xl flex flex-col items-center p-2"
               key={i}
@@ -62,7 +64,7 @@ const router = useRouter();
                 <p>{movie.year}</p>
               </div>
             </div>
-          </>
+          </Link>
         ))}
       </section>
 

@@ -33,7 +33,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts"
-  ],
+, "src/lib/connection.ts"  ],
   "exclude": [
     "node_modules"
   ]
