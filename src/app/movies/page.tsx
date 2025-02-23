@@ -27,7 +27,7 @@ const router = useRouter();
   return (
     <main className="">
       <section className="flex justify-between">
-        <div className="text-5xl flex items-center  gap-2">
+        <div className="text-xl sm:text-3xl md:text-4xl lg:text-5xl flex items-center  gap-2">
           <p className="">My Movies</p>
 
           <Link href={"/create-movie"}>
@@ -35,7 +35,7 @@ const router = useRouter();
           </Link>
         </div>
 
-        <div className="text-2xl flex justify-center items-center gap-2">
+        <div className="text-lg md:text-2xl flex justify-center items-center gap-2">
           <p className="">Logout</p>
           <button className="" onClick={handleLogout}>
             <MdLogout />
@@ -43,7 +43,7 @@ const router = useRouter();
         </div>
       </section>
 
-      <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 py-10 justify-between">
+      <section className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-10 py-10 justify-between">
         {movies.map((movie, i) => (
           <>
             <div
