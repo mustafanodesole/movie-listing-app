@@ -2,33 +2,48 @@
 import Image from "next/image";
 import "./globals.css";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { user as userCredentails } from "@/lib/user";
 import Cookies from "js-cookie";
+import axios from "axios";
+
 export default function Home() {
   const router = useRouter();
+  const [btnDissable, setBtnDissable] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [notValid, setNotValid] = useState(false);
+
   const [user, setUser] = useState({
     email: "",
     password: "",
   });
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
-    if (
-      user.email === userCredentails.email &&
-      user.password === userCredentails.password
-    ) {
-      const token = Math.random().toString(36).substring(2);
-      Cookies.set("auth" , token, {expires : 1})
-
-      toast.success("logged in successfully");
+    try {
+      setLoading(true);
+      const response = await axios.post("/api/login", user);
+      console.log("Login Success", response.data);
+      toast.success("Login Success");
       router.push("/movies");
+    } catch (error: any) {
+      setNotValid(true);
+      console.log(error.message);
 
-    } else {
-      toast.error("please check your credentials");
+      toast.error(error.message);
+    } finally {
+      setLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (user.email.length > 0 && user.password.length > 0) {
+      setBtnDissable(false);
+    } else {
+      setBtnDissable(true);
+    }
+  }, [user]);
 
   const handleChange = (e: any) => {
     const { name, value } = e.target;
@@ -65,7 +80,7 @@ export default function Home() {
             className="bg-[#224957] rounded-xl text-white py-2 px-3 outline-none"
             placeholder="password"
           />
-
+          {notValid ? <p className="text-red-500">Password or Email is incorrect</p> : <p className="text-white "></p>}
           <span className="flex justify-center items-center gap-2">
             <input
               type="checkbox"
@@ -77,7 +92,7 @@ export default function Home() {
             </label>
           </span>
           <button type="submit" className="bg-[#2BD17E] rounded-md p-2">
-            Login
+          {btnDissable ? "No Login" : "Login"}
           </button>
           <Toaster />
         </form>

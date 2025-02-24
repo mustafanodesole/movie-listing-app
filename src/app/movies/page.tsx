@@ -16,15 +16,22 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
+
+
+import Connect from "@/lib/connection";
+import axios from "axios";
 const page = () => {
   const router = useRouter();
   const handleLogout = async () => {
-    await Cookies.remove('auth')
-    if (!Cookies.get('auth')) {
-      router.push('/')
-    }
+     await axios.get('/api/logout').then((res) => console.log(res)).catch((error) => console.log(error));
+    router.push("/");
   }
 
+
+  useEffect(() => {
+    Connect();
+
+  })
 
   return (
     <main className="">
