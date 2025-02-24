@@ -17,8 +17,6 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 
-
-import Connect from "@/lib/connection";
 import axios from "axios";
 const page = () => {
   const router = useRouter();
@@ -27,11 +25,6 @@ const page = () => {
     router.push("/");
   }
 
-
-  useEffect(() => {
-    Connect();
-
-  })
 
   return (
     <main className="">

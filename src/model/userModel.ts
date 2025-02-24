@@ -17,8 +17,6 @@ const userSchema = new mongoose.Schema({
     required: [false, "Please Provide a Password"],
   },
 
-
-
   
 });
 
